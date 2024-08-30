@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<p th:text="${person.id + ' ' + person.name + ' ' + person.birthYear}">Person data</p>
+
+<div th:if="${books.isEmpty()}">
+    <p>Person doesn't have books</p>
+    <hr/>
+</div>
+
+<div th:if="${!books.isEmpty()}">
+    <hr/>
+    <b>Books:</b>
+    <br/>
+    <table th:each="book : ${books}">
+        <tr th:text="${book.name + ', ' + book.publishYear}">book</tr>
+    </table>
+    <hr/>
+</div>
+
+<a th:href="@{/people/{id}/edit(id=${person.id})}">Edit</a>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.id})}">
+    <input type="submit" value="Delete"/>
+</form>
+<br/>
+<hr/>
+<a href="/home">Home</a>
+</body>
+</html>

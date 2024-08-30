@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Book</title>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body style="background-color: gray">
+<form th:method="POST" th:action="@{/books}" th:object="${book}">
+    <label for="name">Enter name</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br>
+    <label for="publishYear">Enter publish year</label>
+    <input type="number" th:field="*{publishYear}" id="publishYear"/>
+    <div style="color: red" th:if="${#fields.hasErrors('publishYear')}" th:errors="*{publishYear}">Publish Year error</div>
+    <br>
+    <input style="background-color: yellow" type="submit" value="Create!"/>
+</form>
+<br/>
+<hr/>
+<a href="/home">Home</a>
+</body>
+</html>

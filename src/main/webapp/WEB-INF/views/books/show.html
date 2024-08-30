@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+</head>
+<body>
+<p th:text="${book.id + ' ' + book.name + ' ' + book.publishYear}">Book data</p>
+<br/>
+<hr/>
+
+<div th:if="${owner}">
+    <span>Book owner is: </span> <span th:text="${owner.name}">Person Name</span>
+
+    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.id})}">
+        <input type="submit" value="Release book"/>
+    </form>
+</div>
+
+<div th:if="${people}">
+    <span>This book is available. Who set it?</span>
+    <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.id})}">
+        <label for="person">Choose person:</label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person :${people}" th:value="${person.id}" th:text="${person.name}">
+
+            </option>
+        </select>
+        <input type="submit" value="set person for book"/>
+    </form>
+</div>
+<br/>
+<hr/>
+<a th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a>
+<form th:method="DELETE" th:action="@{/books/{id}(id=${book.id})}">
+    <input type="submit" value="Delete"/>
+</form>
+<br/>
+<hr/>
+<a href="/home">Home</a>
+</body>
+</html>
